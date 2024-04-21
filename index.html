@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experiment Codes</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .experiment-box {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin-bottom: 20px;
+        background-color: #f9f9f9;
+    }
+
+    .experiment-heading {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .code {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 10px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+    }
+
+    .copy-btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+
+<div class="experiment-box">
+    <div class="experiment-heading">Experiment 1</div>
+    <div class="code" id="experiment1">
+[x, y] = meshgrid(-2:0.2:2, -2:0.2:2);
+f = exp(x.*y);
+figure('Position', [100, 100, 800, 600]); % Adjust figure size for clarity
+surf(x, y, f);
+xlabel('x');
+ylabel('y');
+zlabel('f');
+hold on;
+contour(x, y, f);
+[px, py] = gradient(f, 0.2, 0.2);
+quiver(x, y, px, py);
+hold off;
+axis image;
+    </div>
+    <button class="copy-btn" onclick="copyCode('experiment1')">Copy Code</button>
+</div>
+
+<div class="experiment-box">
+    <div class="experiment-heading">Experiment 3</div>
+    <div class="code" id="experiment3">
+function curl()
+syms x y z
+%clear all
+close all
+clc
+% request user function
+prompt = 'Enter a i component of vector field:  ';
+x_in=input(prompt);
+prompt = 'Enter a j component of vector field:  ';
+y_in=input(prompt);
+prompt = 'Enter a k component of vector field:  ';
+z_in=input(prompt);
+
+V=[x_in,y_in,z_in];
+% Plot figure 1 vector fields
+figure(1)
+[X,Y]= meshgrid(-5:.5:5,-5:.5:5);
+F1=subs(x_in, [x y], {X,Y}); 
+F2=subs(y_in, [x y], {X,Y});
+set (gcf, 'units', 'normalized', 'position', [0.6 0.2 0.35 0.4]);
+quiver (X,Y, F1 , F2 ,1, 'color',[0 0 1], 'linewidth',2);
+shading flat
+hold on
+xlabel('ix')
+ylabel('jy')
+title(sprintf('Vector field = i [%s] + j [%s] + k[%s] \n',V(1), V(2), V(3)))
+hold off
+
+%curl
+X=[x y z];
+cur=curl(V,X);
+%Plot figure 2 curl
+figure(2)
+fsurf(cur)
+xlabel('ix')
+ylabel('jy')
+zlabel('kz')
+title(sprintf('Curl=i[%s]+j[%s]+k[%s] \n', cur(1),cur(2),cur(3)))
+
+end
+    </div>
+    <button class="copy-btn" onclick="copyCode('experiment3')">Copy Code</button>
+</div>
+
+<div class="experiment-box">
+    <div class="experiment-heading">Experiment 5</div>
+    <div class="code" id="experiment5">
+[x, y] = meshgrid(5:0.05:15, -5:0.05:5);
+lambda = 1;
+k = 2 * pi / lambda;
+f = 3e8 / lambda;
+w = 2 * pi * f;
+t = linspace(0, 60e-9, 200); % Corrected the function name from "linespace" to "linspace"
+z = exp(1i * k * x);
+
+figure; % Create a new figure
+for n = 1:length(t)
+    surf(x, y, real(z * exp(-1i * w * t(n))));
+    view(3);
+    title('EMT WAVE');
+    zlim([-1.5 1.5]);
+    xlim([min(x(:)) max(x(:))]); % Added (:)
+    ylim([min(y(:)) max(y(:))]); % Added (:)
+    shading interp;
+    pause(0.1); % Added a pause for visualization
+end
+    </div>
+    <button class="copy-btn" onclick="copyCode('experiment5')">Copy Code</button>
+</div>
+
+<script>
+    function copyCode(id) {
+        var codeElement = document.getElementById(id);
+        var range = document.createRange();
+        range.selectNode(codeElement);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        window.getSelection().removeAllRanges();
+        alert("Code copied!");
+    }
+</script>
+
+</body>
+</html>
