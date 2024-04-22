@@ -67,19 +67,16 @@ axis image;
     <div class="experiment-heading">Experiment 1</div>
     <div class="sub-heading">Code 2</div> <!-- New subheading -->
     <div class="code" id="experiment1">
-        [x, y] = meshgrid(-2:0.2:2, -2:0.2:2);
-        f = exp(x.*y);
-        figure('Position', [100, 100, 800, 600]); % Adjust figure size for clarity
-        surf(x, y, f);
-        xlabel('x');
-        ylabel('y');
-        zlabel('f');
-        hold on;
-        contour(x, y, f);
-        [px, py] = gradient(f, 0.2, 0.2);
-        quiver(x, y, px, py);
-        hold off;
-        axis image;
+        [x,y]=meshgrid(-2:.2:2,-2:.2:2);
+F=sin(x.*y);
+surf(x,y,F); % Corrected variable name from 'f' to 'F'
+xlabel('x'); % Corrected function name from 'X label' to 'xlabel'
+ylabel('y'); % Corrected function name from 'Y label' to 'ylabel'
+zlabel('f'); % Corrected function name from 'Z label' to 'zlabel'
+contour(x,y,F); % Corrected variable name from 'f' to 'F'
+[PX,PY] = gradient(F,.2,.2); % Corrected variable name from 'f' to 'F'
+contour(F), hold on, quiver(PX,PY), hold off; % Corrected variable name from 'f' to 'F'
+axis image;
     </div>
     <button class="copy-btn" onclick="copyCode('experiment1')">Copy Code</button>
 </div>
