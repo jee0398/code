@@ -63,6 +63,22 @@ axis image;
     </div>
     <button class="copy-btn" onclick="copyCode('experiment1')">Copy Code</button>
 </div>
+    <div class="experiment-box">
+    <div class="experiment-heading">Experiment 2</div>
+    <div class="code" id="experiment2">
+[x,y]=meshgrid(-2:.2:2,-2:.2:2);
+f= sin(x.*y);
+surf(x,y,f);
+xlabel('x');
+ylabel('y');
+zlabel('f');
+contour(x,y,f);
+[px,py]=gradient(f,.2,.2);
+quiver(px,py);
+axis image;
+    </div>
+    <button class="copy-btn" onclick="copyCode('experiment2')">Copy Code</button>
+    </div>
 
 <div class="experiment-box">
     <div class="experiment-heading">Experiment 3</div>
